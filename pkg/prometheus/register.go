@@ -17,5 +17,5 @@ func RegisterServer(server *grpc.Server, port string, addr string, job string) {
 	fmt.Println("will register")
 	grpcPrometheus.Register(server)
 	EtcdRegister(addr, job)
-	go RpcHandler(port)
+	go RpcHandler(addr)
 }
