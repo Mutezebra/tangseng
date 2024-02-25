@@ -18,6 +18,7 @@
 package main
 
 import (
+	"github.com/CocaineCong/tangseng/pkg/prometheus"
 	"net"
 
 	"github.com/pkg/errors"
@@ -51,10 +52,14 @@ func main() {
 		Name: config.Conf.Domain[MapreduceServerName].Name,
 		Addr: grpcAddress,
 	}
-	server := grpc.NewServer()
+	server := grpc.NewServer(
+		grpc.UnaryInterceptor(prometheus.UnaryServerInterceptor),
+		grpc.StreamInterceptor(prometheus.StreamServerInterceptor),
+	)
 	defer server.Stop()
 
 	mapreduce.RegisterMapReduceServiceServer(server, master.GetMapReduceSrv())
+	prometheus.Register(server, config.Conf.Services[MapreduceServerName].AddrMetrics[0], MapreduceServerName)
 	lis, err := net.Listen("tcp", grpcAddress)
 	if err != nil {
 		panic(err)

@@ -20,6 +20,7 @@ package rpc
 import (
 	"context"
 	"fmt"
+	"github.com/CocaineCong/tangseng/pkg/prometheus"
 	"log"
 	"time"
 
@@ -91,6 +92,7 @@ func initClient(serviceName string, client interface{}) {
 }
 
 func connectServer(serviceName string) (conn *grpc.ClientConn, err error) {
+	prometheus.EnableHandlingTimeHistogram()
 	opts := []grpc.DialOption{
 		grpc.WithTransportCredentials(insecure.NewCredentials()),
 	}

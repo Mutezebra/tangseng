@@ -18,6 +18,7 @@
 package main
 
 import (
+	"github.com/CocaineCong/tangseng/pkg/prometheus"
 	"net"
 
 	"github.com/pkg/errors"
@@ -46,10 +47,14 @@ func main() {
 		Name: config.Conf.Domain[consts.FavoriteServiceName].Name,
 		Addr: grpcAddress,
 	}
-	server := grpc.NewServer()
+	server := grpc.NewServer(
+		grpc.UnaryInterceptor(prometheus.UnaryServerInterceptor),
+		grpc.StreamInterceptor(prometheus.StreamServerInterceptor),
+	)
 	defer server.Stop()
 	// 绑定service
 	favoritePb.RegisterFavoritesServiceServer(server, service.GetFavoriteSrv())
+	prometheus.Register(server, config.Conf.Services[consts.FavoriteServiceName].AddrMetrics[0], consts.FavoriteServiceName)
 	lis, err := net.Listen("tcp", grpcAddress)
 	if err != nil {
 		panic(err)

@@ -19,6 +19,7 @@ package main
 
 import (
 	"context"
+	"github.com/CocaineCong/tangseng/pkg/prometheus"
 	"net"
 
 	"github.com/pkg/errors"
@@ -55,10 +56,14 @@ func main() {
 		Name: config.Conf.Domain[consts.IndexPlatformName].Name,
 		Addr: grpcAddress,
 	}
-	server := grpc.NewServer()
+	server := grpc.NewServer(
+		grpc.UnaryInterceptor(prometheus.UnaryServerInterceptor),
+		grpc.StreamInterceptor(prometheus.StreamServerInterceptor),
+	)
 	defer server.Stop()
 
 	index_platform.RegisterIndexPlatformServiceServer(server, service.GetIndexPlatformSrv())
+	prometheus.Register(server, config.Conf.Services[consts.IndexPlatformName].AddrMetrics[0], consts.IndexPlatformName)
 	lis, err := net.Listen("tcp", grpcAddress)
 	if err != nil {
 		panic(err)

@@ -19,6 +19,7 @@ package main
 
 import (
 	"context"
+	"github.com/CocaineCong/tangseng/pkg/prometheus"
 	"net"
 
 	logs "github.com/CocaineCong/tangseng/pkg/logger"
@@ -56,10 +57,14 @@ func main() {
 		Name: config.Conf.Domain[consts.SearchServiceName].Name,
 		Addr: grpcAddress,
 	}
-	server := grpc.NewServer()
+	server := grpc.NewServer(
+		grpc.UnaryInterceptor(prometheus.UnaryServerInterceptor),
+		grpc.StreamInterceptor(prometheus.StreamServerInterceptor),
+	)
 	defer server.Stop()
 	// 绑定service
 	pb.RegisterSearchEngineServiceServer(server, service.GetSearchEngineSrv())
+	prometheus.Register(server, config.Conf.Services[consts.SearchServiceName].AddrMetrics[0], consts.SearchServiceName)
 	lis, err := net.Listen("tcp", grpcAddress)
 	if err != nil {
 		panic(err)

@@ -111,6 +111,7 @@ type Service struct {
 	Name        string   `yaml:"name"`
 	LoadBalance bool     `yaml:"loadBalance"`
 	Addr        []string `yaml:"addr"`
+	AddrMetrics []string `yaml:"addr_metrics""`
 }
 
 type Kafka struct {
