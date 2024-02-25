@@ -1,4 +1,4 @@
-package myprometheus
+package prometheus
 
 import grpcPrometheus "github.com/grpc-ecosystem/go-grpc-prometheus"
 

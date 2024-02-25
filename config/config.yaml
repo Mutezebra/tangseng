@@ -99,7 +99,7 @@ services:
     addr:
       - 127.0.0.1:20006
     addr_metrics:
-      - 127.0.0.1:30007
+      - 127.0.0.1:30006
 
   search_vector:
     name: search_vector
@@ -107,7 +107,7 @@ services:
     addr:
       - 127.0.0.1:20007
     addr_metrics:
-      - 127.0.0.1:30008
+      - 127.0.0.1:30007
 
 starrocks:
   username: root

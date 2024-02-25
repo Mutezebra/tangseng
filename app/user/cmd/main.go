@@ -19,6 +19,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/CocaineCong/tangseng/pkg/prometheus"
 	"net"
 
 	logs "github.com/CocaineCong/tangseng/pkg/logger"
@@ -48,14 +49,14 @@ func main() {
 		Addr: grpcAddress,
 	}
 	server := grpc.NewServer(
-		grpc.UnaryInterceptor(myprometheus.UnaryServerInterceptor),
-		grpc.StreamInterceptor(myprometheus.StreamServerInterceptor),
+		grpc.UnaryInterceptor(prometheus.UnaryServerInterceptor),
+		grpc.StreamInterceptor(prometheus.StreamServerInterceptor),
 	)
 	defer server.Stop()
 	// 绑定service
 	pb.RegisterUserServiceServer(server, service.GetUserSrv())
 	fmt.Println("i am ready to register")
-	myprometheus.RegisterServer(server, config.Conf.Services[consts.UserServiceName].AddrMetrics[0], consts.UserServiceName)
+	prometheus.RegisterServer(server, config.Conf.Services[consts.UserServiceName].AddrMetrics[0], consts.UserServiceName)
 	fmt.Println("i am ok")
 	lis, err := net.Listen("tcp", grpcAddress)
 	if err != nil {

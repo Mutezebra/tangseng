@@ -1,4 +1,4 @@
-package myprometheus
+package prometheus
 
 import (
 	"encoding/json"

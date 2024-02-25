@@ -18,6 +18,7 @@
 package routes
 
 import (
+	"github.com/CocaineCong/tangseng/pkg/prometheus"
 	"github.com/gin-gonic/gin"
 
 	"github.com/gin-contrib/sessions"
@@ -32,7 +33,7 @@ func NewRouter() *gin.Engine {
 	r.Use(middleware.Cors(), middleware.ErrorMiddleware())
 	store := cookie.NewStore([]byte("something-very-secret"))
 	r.Use(sessions.Sessions("mysession", store))
-	r.GET("/metrics", myprometheus.GatewayHandler())
+	r.GET("/metrics", prometheus.GatewayHandler())
 	v1 := r.Group("/api/v1")
 	{
 		v1.GET("ping", func(context *gin.Context) {
