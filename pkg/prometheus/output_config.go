@@ -24,10 +24,7 @@ func GenerateAllConfigFile() {
 // for the services
 func GenerateConfigFile(job string) {
 	instance := GetServerAddress(job)
-	os.Create(fmt.Sprintf("./pkg/prometheus/config/files/%s.json", job))
-	d, _ := os.Getwd()
-	fmt.Println(d)
-	f, err := os.OpenFile(fmt.Sprintf("%s/pkg/prometheus/config/files/%s.json", d, job), os.O_CREATE|os.O_APPEND, 0777)
+	f, err := os.OpenFile(fmt.Sprintf("./pkg/prometheus/config/files/%s.json", d, job), os.O_CREATE|os.O_APPEND, 0744)
 	if err != nil {
 		log.LogrusObj.Error(fmt.Sprintf("failed open file prometheus/config/files/%s.json", job), err)
 		return
