@@ -56,7 +56,7 @@ func main() {
 	// 绑定service
 	pb.RegisterUserServiceServer(server, service.GetUserSrv())
 	fmt.Println("i am ready to register")
-	prometheus.RegisterServer(server, "30002", "127.0.0.1:20002", "user")
+	prometheus.RegisterServer(server, "30002", "127.0.0.1:30002", "user")
 	fmt.Println("i am ok")
 	lis, err := net.Listen("tcp", grpcAddress)
 	if err != nil {
