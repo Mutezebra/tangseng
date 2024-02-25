@@ -1,4 +1,4 @@
-package prometheus
+package myprometheus
 
 import (
 	log "github.com/CocaineCong/tangseng/pkg/logger"
