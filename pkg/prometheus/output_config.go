@@ -27,9 +27,10 @@ func GenerateConfigFile(job string) {
 	_, err := os.Stat("./pkg/prometheus/config/files")
 	if os.IsNotExist(err) {
 		_ = os.MkdirAll("./pkg/prometheus/config/files", 0755)
+		_ = os.Chmod("./pkg/prometheus/config/files", 0777)
 	}
 
-	f, err := os.OpenFile(fmt.Sprintf("./pkg/prometheus/config/files/%s.json", job), os.O_TRUNC|os.O_RDWR, 0755)
+	f, err := os.OpenFile(fmt.Sprintf("./pkg/prometheus/config/files/%s.json", job), os.O_TRUNC|os.O_RDWR, 0777)
 	if err != nil {
 		log.LogrusObj.Error(fmt.Sprintf("failed open file prometheus/config/files/%s.json", job), err)
 		return
