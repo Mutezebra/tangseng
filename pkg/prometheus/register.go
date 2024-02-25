@@ -6,11 +6,16 @@ import (
 	"google.golang.org/grpc"
 )
 
-// Register grpcServer with prometheus
-// and addr with etcd
-func RegisterServer(server *grpc.Server, addr string, job string) {
+var (
+	UnaryServerInterceptor  = grpcPrometheus.UnaryServerInterceptor
+	StreamServerInterceptor = grpcPrometheus.StreamServerInterceptor
+
+	EnableHandlingTimeHistogram = grpcPrometheus.EnableHandlingTimeHistogram
+)
+
+func RegisterServer(server *grpc.Server, port string, addr string, job string) {
 	fmt.Println("will register")
 	grpcPrometheus.Register(server)
 	EtcdRegister(addr, job)
-	go RpcHandler(addr)
+	go RpcHandler(port)
 }
