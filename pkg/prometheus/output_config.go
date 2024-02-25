@@ -26,7 +26,7 @@ func GenerateConfigFile(job string) {
 	instance := GetServerAddress(job)
 	_, err := os.Stat("./pkg/prometheus/config/files")
 	if os.IsNotExist(err) {
-		_ = os.MkdirAll("./pkg/prometheus/config/files", 0744)
+		_ = os.MkdirAll("./pkg/prometheus/config/files", 0755)
 	}
 
 	f, err := os.OpenFile(fmt.Sprintf("./pkg/prometheus/config/files/%s.json", job), os.O_TRUNC|os.O_RDWR, 0755)
