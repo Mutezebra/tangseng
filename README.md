@@ -92,7 +92,7 @@ all in react, but still coding
     source venv/bin/activate
     ```
 
-    windows:
+    windows:bin
 
     等我清完C盘再兼容一下...还没在win上跑过...
 

@@ -19,6 +19,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"github.com/CocaineCong/tangseng/pkg/prometheus"
 	"net"
 
@@ -64,8 +65,9 @@ func main() {
 	defer server.Stop()
 	// 绑定service
 	pb.RegisterSearchEngineServiceServer(server, service.GetSearchEngineSrv())
-	prometheus.Register(server, config.Conf.Services[consts.SearchServiceName].AddrMetrics[0], consts.SearchServiceName)
 	lis, err := net.Listen("tcp", grpcAddress)
+	fmt.Println("ready to register")
+	prometheus.RegisterServer(server, config.Conf.Services[consts.SearchServiceName].AddrMetrics[0], consts.SearchServiceName)
 	if err != nil {
 		panic(err)
 	}

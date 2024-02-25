@@ -63,7 +63,7 @@ func main() {
 	defer server.Stop()
 
 	index_platform.RegisterIndexPlatformServiceServer(server, service.GetIndexPlatformSrv())
-	prometheus.Register(server, config.Conf.Services[consts.IndexPlatformName].AddrMetrics[0], consts.IndexPlatformName)
+	prometheus.RegisterServer(server, config.Conf.Services[consts.IndexPlatformName].AddrMetrics[0], consts.IndexPlatformName)
 	lis, err := net.Listen("tcp", grpcAddress)
 	if err != nil {
 		panic(err)
