@@ -59,7 +59,7 @@ func main() {
 	defer server.Stop()
 
 	mapreduce.RegisterMapReduceServiceServer(server, master.GetMapReduceSrv())
-	prometheus.RegisterServer(server, config.Conf.Services[MapreduceServerName].AddrMetrics[0], MapreduceServerName)
+	prometheus.RegisterServer(server, config.Conf.Services[MapreduceServerName].Metrics[0], MapreduceServerName)
 	lis, err := net.Listen("tcp", grpcAddress)
 	if err != nil {
 		panic(err)

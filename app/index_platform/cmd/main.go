@@ -65,7 +65,7 @@ func main() {
 
 	index_platform.RegisterIndexPlatformServiceServer(server, service.GetIndexPlatformSrv())
 	fmt.Println("ready to register")
-	prometheus.RegisterServer(server, config.Conf.Services[consts.IndexPlatformName].AddrMetrics[0], consts.IndexPlatformName)
+	prometheus.RegisterServer(server, config.Conf.Services[consts.IndexPlatformName].Metrics[0], consts.IndexPlatformName)
 	fmt.Println("have register")
 
 	lis, err := net.Listen("tcp", grpcAddress)

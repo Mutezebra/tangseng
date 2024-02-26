@@ -18,6 +18,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/CocaineCong/tangseng/pkg/prometheus"
 	"net"
 
@@ -54,7 +55,8 @@ func main() {
 	defer server.Stop()
 	// 绑定service
 	favoritePb.RegisterFavoritesServiceServer(server, service.GetFavoriteSrv())
-	prometheus.RegisterServer(server, "30006", config.Conf.Services[consts.FavoriteServiceName].AddrMetrics[0], consts.FavoriteServiceName)
+	fmt.Println(config.Conf.Services[consts.FavoriteServiceName].Metrics[0])
+	prometheus.RegisterServer(server, "30006", config.Conf.Services[consts.FavoriteServiceName].Metrics[0], consts.FavoriteServiceName)
 	lis, err := net.Listen("tcp", grpcAddress)
 	if err != nil {
 		panic(err)

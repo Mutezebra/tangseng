@@ -54,7 +54,7 @@ func main() {
 	defer server.Stop()
 	// 绑定service
 	pb.RegisterUserServiceServer(server, service.GetUserSrv())
-	prometheus.RegisterServer(server, config.Conf.Services[consts.UserServiceName].AddrMetrics[0], consts.UserServiceName)
+	prometheus.RegisterServer(server, config.Conf.Services[consts.UserServiceName].Metrics[0], consts.UserServiceName)
 	lis, err := net.Listen("tcp", grpcAddress)
 	if err != nil {
 		panic(err)

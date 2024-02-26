@@ -58,7 +58,7 @@ services:
     loadBalance: true
     addr:
       - 127.0.0.1:20001
-    addr_metrics:
+    metrics:
       - 127.0.0.1:30001
 
   user:
@@ -66,7 +66,7 @@ services:
     loadBalance: false
     addr:
       - 127.0.0.1:20002
-    addr_metrics:
+    metrics:
       - 127.0.0.1:30002
 
   favorite:
@@ -74,7 +74,7 @@ services:
     loadBalance: false
     addr:
       - 127.0.0.1:20003
-    addr_metrics:
+    metrics:
       - 127.0.0.1:30003
 
   search_engine:
@@ -82,7 +82,7 @@ services:
     loadBalance: false
     addr:
       - 127.0.0.1:20004
-    addr_metrics:
+    metrics:
       - 127.0.0.1:30004
 
   index_platform:
@@ -90,7 +90,7 @@ services:
     loadBalance: false
     addr:
       - 127.0.0.1:20005
-    addr_metrics:
+    metrics:
       - 127.0.0.1:30005
 
   mapreduce:
@@ -98,7 +98,7 @@ services:
     loadBalance: false
     addr:
       - 127.0.0.1:20006
-    addr_metrics:
+    metrics:
       - 127.0.0.1:30006
 
   search_vector:
@@ -106,7 +106,7 @@ services:
     loadBalance: false
     addr:
       - 127.0.0.1:20007
-    addr_metrics:
+    metrics:
       - 127.0.0.1:30007
 
 starrocks:

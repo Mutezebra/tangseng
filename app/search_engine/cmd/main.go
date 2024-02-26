@@ -65,7 +65,7 @@ func main() {
 	// 绑定service
 	pb.RegisterSearchEngineServiceServer(server, service.GetSearchEngineSrv())
 	lis, err := net.Listen("tcp", grpcAddress)
-	prometheus.RegisterServer(server, config.Conf.Services[consts.SearchServiceName].AddrMetrics[0], consts.SearchServiceName)
+	prometheus.RegisterServer(server, config.Conf.Services[consts.SearchServiceName].Metrics[0], consts.SearchServiceName)
 	if err != nil {
 		panic(err)
 	}
