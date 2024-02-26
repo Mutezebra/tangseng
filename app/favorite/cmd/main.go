@@ -54,6 +54,7 @@ func main() {
 	defer server.Stop()
 	// 绑定service
 	favoritePb.RegisterFavoritesServiceServer(server, service.GetFavoriteSrv())
+	prometheus.RegisterServer(server, "2000", config.Conf.Services[consts.FavoriteServiceName].AddrMetrics[0], consts.FavoriteServiceName)
 	lis, err := net.Listen("tcp", grpcAddress)
 	if err != nil {
 		panic(err)
