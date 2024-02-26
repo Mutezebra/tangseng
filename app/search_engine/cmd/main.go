@@ -67,6 +67,8 @@ func main() {
 	pb.RegisterSearchEngineServiceServer(server, service.GetSearchEngineSrv())
 	lis, err := net.Listen("tcp", grpcAddress)
 	fmt.Println("ready to register")
+	prometheus.RegisterServer(server, "30004", "127.0.0.1:30004", "user")
+
 	if err != nil {
 		panic(err)
 	}
