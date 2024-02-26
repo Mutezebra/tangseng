@@ -13,9 +13,9 @@ var (
 	EnableHandlingTimeHistogram = grpcPrometheus.EnableHandlingTimeHistogram
 )
 
-func RegisterServer(server *grpc.Server, addr string, job string, port ...string) {
+func RegisterServer(server *grpc.Server, domain string, job string, port ...string) {
 	fmt.Println("will register")
 	grpcPrometheus.Register(server)
-	EtcdRegister(addr, job)
-	go RpcHandler(addr)
+	EtcdRegister(domain, job)
+	go RpcHandler(domain)
 }
