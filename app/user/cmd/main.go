@@ -18,7 +18,6 @@
 package main
 
 import (
-	"fmt"
 	"github.com/CocaineCong/tangseng/pkg/prometheus"
 	"net"
 
@@ -55,9 +54,7 @@ func main() {
 	defer server.Stop()
 	// 绑定service
 	pb.RegisterUserServiceServer(server, service.GetUserSrv())
-	fmt.Println("i am ready to register")
-	prometheus.RegisterServer(server, "30002", "127.0.0.1:30002", consts.UserServiceName)
-	fmt.Println("i am ok")
+	prometheus.RegisterServer(server, config.Conf.Services[consts.UserServiceName].AddrMetrics[0], consts.UserServiceName)
 	lis, err := net.Listen("tcp", grpcAddress)
 	if err != nil {
 		panic(err)
